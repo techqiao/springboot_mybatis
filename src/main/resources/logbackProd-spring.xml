@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+
+	<!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+	<!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%-5level [Systems]: %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%-5level}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t]){faint} %c %clr(%msg - %c){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="FILE_LOG_PATTERN" value="%-5level [Systems]: %d{yyyy-MM-dd HH:mm:ss.SSS}--- [%t] %msg - %c:%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!--  <pattern>logbak——>   %-5level [Systems]: %d{yyyy-MM-dd HH:mm:ss.SSS} %msg - %c%n</pattern>-->
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset> <!-- 此处设置字符集 -->
+		</encoder>
+	</appender>
+
+
+	<appender name="dailyRollingFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<FileNamePattern>./logs/springboot%d{yyyy-MM-dd}.log</FileNamePattern>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<!--  <Pattern>logbak——>   %-5level [Repair]: %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %msg - %c%n</Pattern>-->
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<charset>UTF-8</charset> <!-- 此处设置字符集 -->
+		</encoder>
+	</appender>
+	
+	<logger name="com.shuyang.mall" level="info">
+	</logger>
+
+	<root level="warn">
+		<appender-ref ref="console" />
+		<appender-ref ref="dailyRollingFileAppender" />
+	</root>
+	
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="dailyRollingFileAppender" />
+	</root>
+	
+</configuration>
