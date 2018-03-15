@@ -7,6 +7,8 @@ import com.wjq.domain.User;
 import com.wjq.domain.UserCriteria;
 import com.wjq.query.UserQuery;
 import com.wjq.service.IUserService;
+import com.wjq.utils.DateTimeUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Result<List<User>> listAll2(UserQuery query) {
-        return Result.success(userMapper.getUserList(query));
+        UserCriteria userCriteria = new UserCriteria();
+        userCriteria.setOrderByClause("age desc");
+        UserCriteria.Criteria criteria = userCriteria.createCriteria();
+        if(StringUtils.isNotBlank(query.getName())){
+            criteria.andNameLike("%WQ%");
+        }
+        criteria.andCreateTimeBetween(DateTimeUtil.strToDate("2018-02-09 14:51:51"),DateTimeUtil.strToDate("2018-03-14 15:02:00"));
+        RowBounds rowBounds = getRowBounds(query.getPageNo(), query.getPageSize());
+        return Result.success(userMapper.selectByExampleWithRowbounds(userCriteria,rowBounds));
     }
 
     private RowBounds getRowBounds(int pageNo, int pageSize) {

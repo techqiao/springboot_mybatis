@@ -43,12 +43,9 @@ public class UserController {
     }
 
     @PostMapping(value = "getUserAll", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Result<List<User>> getUserAll(UserCriteria userCriteria,
-                                         UserQuery query) {
+    public Result<List<User>> getUserAll2(UserQuery query) {
 //        int pageNo = getBeginIndex(query.getPageNo(),query.getPageSize());
 //        RowBounds rowBounds = new RowBounds(pageNo,query.getLimit());
-        userCriteria.createCriteria().andNameLike("%WQ%")
-                .andCreateTimeBetween(DateTimeUtil.strToDate("2018-02-09 14:51:51"),DateTimeUtil.strToDate("2018-03-14 15:02:00"));
 //        Result<List<User>> listResult = userService.listAll(userCriteria, rowBounds);
 //        Result<List<User>> listResult = userService.listAll2(query);
 //        query.setOrderStr("id");
@@ -56,7 +53,7 @@ public class UserController {
 //        for (User user : listResult.getData()) {
 //            System.out.println(user.getName());
 //        }
-
+        userService.listAll2(query);
         return null;
     }
 
