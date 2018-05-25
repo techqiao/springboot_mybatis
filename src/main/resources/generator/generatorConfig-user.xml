@@ -17,9 +17,9 @@
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://139.196.36.243:3918/cash_database"
+                        connectionURL="jdbc:mysql://192.168.1.213:3306/cash_database"
                         userId="admin"
-                        password="42P%*FdfA323JSD%2s45">
+                        password="123456">
         </jdbcConnection>
 
         <!-- 生成model模型，对应的包，存放位置可以指定具体的路径-->
